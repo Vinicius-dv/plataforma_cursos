@@ -134,6 +134,10 @@
     transition: background 0.5s;
 } 
 
+.button_img button:hover{
+    background-color: #FFC107;
+}
+
 
 .button_img button a{
     color: white;
@@ -147,8 +151,80 @@
         top: 80%;
     }
     .button_img button{
-        height: 30px;
-        width: 100px;
+        font-size: 12px;
+        margin-top: 20px;
+        height:30px;
+        width: 120px;
     }
 }
+
+
+.main_banner{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 80px;
+}
+
+.img_banner{
+    margin-left: 6%;
+}
+
+.desc_banner{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 25%;
+}
+
+.desc_banner p,span{
+    gap: 5px;
+    font-weight: bolder;
+    font-size: 2em;
+}
+
+.desc_banner button{
+    margin-top: 30px;
+    height: 60px;
+    width: 180px;
+    font-size: 20px;
+    background: blue;
+    color: white;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.5s;
+}
+
+.desc_banner button:hover{
+    background-color: rgb(3, 3, 188);
+}
+
+
+@media(max-width:1170px){
+    .main_banner{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .img_banner{
+        width: 100%;
+        margin: 0px;
+    }
+
+    .img_banner img{
+        width: 100%;
+    }
+
+    .desc_banner{
+        margin: 0px;
+    }
+}
+
+
 /*Fim estilos main*/
+
+
