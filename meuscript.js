@@ -13,3 +13,13 @@ mainMobile.addEventListener('click',(e)=>{
         menuItens.classList.remove("open")
     }
 })
+
+
+window.onload = () => {
+  
+    const token = localStorage.getItem('token')
+
+    if (token) {
+        window.location.href = '/painel_login.html';
+    }
+}

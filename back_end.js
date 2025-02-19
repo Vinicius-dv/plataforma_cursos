@@ -4,6 +4,8 @@ const mongoose = require('mongoose')
 const app = express()
 const port = 3000
 const cors = require('cors')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken');
 app.use(cors())
 app.use(body_parser.json())
 app.use(express.json())
@@ -12,44 +14,119 @@ mongoose.connect('mongodb://127.0.0.1:27017/cadastro', { useNewUrlParser: true, 
 .then(() => console.log('Conectado ao MongoDB!'))
 .catch(err => console.error('Erro ao conectar ao MongoDB:', err))
 
-
 const cadastro_Schema = new mongoose.Schema({
-    senha:String,
+    senha: String,
     nome: String,
     sobrenome: String,
-    email:String
+    email: String
 })
 
-const cadastro = mongoose.model('Cadastro',cadastro_Schema)
+const cadastro = mongoose.model('Cadastro', cadastro_Schema)
 
-app.post('/cadastro',(req,res)=>{
+app.post('/cadastro', (req, res) => {
     const nome = req.body.nome
     const email = req.body.email
-     cadastro.findOne({
-        $or: [{nome},{email}]
+    const senha = req.body.senha
+    const sobrenome = req.body.sobrenome
+
+    cadastro.findOne({
+        $or: [{ nome }, { email },{sobrenome}]
     })
-    .then( usuario_existe=>{
+    .then(usuario_existe => {
         if (usuario_existe) {
             return res.status(400).json({
-                success:false,
-                message: 'Nome ou email já cadastrados!' 
-            });
-        }else{
-            const novo_cadastro = new cadastro(req.body)
-            novo_cadastro.save()
-            .then(()=>{
-            return res.status(201).json({
-                success:true,
-                message:'Usuario cadastrado com sucesso',
+                success: false,
+                message: 'Nome ou email já cadastrados!'
             })
-        })
-        .catch((err)=>{
-            res.status(500).json({message:'Ocorreu um erro'+err})
-        })
-        } 
+        } else {
+            bcrypt.genSalt(10, (err, salt) => {
+                if (err) {
+                    console.log('Erro ao gerar o salt', err)
+                    return res.status(500).json('Erro interno')
+                }
+
+                bcrypt.hash(senha, salt, (err, hash) => {
+                    if (err) {
+                        console.log('Erro ao gerar o hash', err)
+                        return res.status(500).json('Erro interno')
+                    }
+
+                    const novo_cadastro = new cadastro({
+                        nome,
+                        email,
+                        sobrenome,
+                        senha: hash
+                    })
+
+                    novo_cadastro.save()
+                    .then(() => {
+                        return res.status(201).json({
+                            success: true,
+                            message: 'Usuário cadastrado com sucesso',
+                        })
+                    })
+                    .catch((err) => {
+                        res.status(500).json({ message: 'Ocorreu um erro: ' + err })
+                    })
+                })
+            })
+        }
+    })
+    .catch((err) => {
+        res.status(500).json({ message: 'Erro ao verificar dados: ' + err })
     })
 })
 
 
+app.post('/login',(req,res)=>{
+    const nome = req.body.nome
+    const email = req.body.email
+    const senha = req.body.senha
+    const sobrenome = req.body.sobrenome
 
-app.listen(port,()=>{console.log('Rodando na porta'+port)})
+    cadastro.findOne({email,nome,sobrenome})
+    .then(usuario=>{
+        if(!usuario){  
+            return res.status(400).json({
+            success: false,
+            message: 'Usuário não encontrado!,faça seu cadastro!',
+        })
+    }
+
+        bcrypt.compare(senha,usuario.senha,(err,ismatch)=>{
+            if(err){
+                return res.status(500).json({
+                    success: false,
+                    message: 'Erro ao comparar as senhas!'
+            })
+            }
+
+            if(!ismatch) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Senha incorreta!',
+            })
+        }
+        const token = jwt.sign(
+            {id:usuario.id,nome:usuario.nome,email:usuario.email,sobrenome:usuario.sobrenome},
+            'fala_peixe',
+            {expiresIn:'1h'}
+        )
+        return res.status(200).json({
+            success: true,
+            message: 'Login bem-sucedido!',
+            token,
+        })
+        })
+    })
+    .catch((err)=>{
+        res.status(500).json({
+            success: false,
+            message: 'Erro ao fazer login: ' + err,
+        })
+    })
+})
+
+app.listen(port, () => {
+    console.log('Rodando na porta ' + port)
+})
