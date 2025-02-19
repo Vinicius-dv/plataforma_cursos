@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_cadastro.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body  style="background-color: #606CF5; width: 100%; height: 100%;">
+    <header>
+        <nav class="nav_itens">
+            <p class="p_logo">Learnify Cursos</p>
+            <ul class="ul_itens">
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+
+                <li>
+                    <a href="pagina_cursos.html">Login</a>
+                </li>
+
+                <li>
+                    <a href="pagina_cursos.html">Cursos</a>
+                </li>
+
+
+                <li>
+                    <a href="pagina_cursos.html">Certificado</a>
+                </li>            
+            </ul>
+            <span style="color: black;" class="menu_hamburguer" id="menu_hamburguer">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+        </nav>
+        <div class="main_mobile" id="main_mobile">
+            <div class="menu_itens">
+                <ul class="ul_mobile">
+
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+    
+                    <li>
+                        <a href="pagina_cursos.html">Login</a>
+                    </li>
+    
+                    <li>
+                        <a href="pagina_cursos.html">Cursos</a>
+                    </li>
+    
+                    <li>
+                        <a href="pagina_cursos.html">Certificado</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main>
+       
+        <div class="main_cadastro">
+            <h1>Faça Seu cadastro na Nossa Plataforma</h1>
+            <form class="form_cadastro" id="form" action="" method="post">
+                <label for="nome">Nome *</label>
+                <input type="text" name="nome" id="nome" placeholder="Digite seu nome" required max="10" min="5">
+
+                <label for="sobrenome">Sobrenome *</label>
+                <input type="text" name="sobrenome" id="sobrenome" placeholder="Digite seu sobrenome" required max="13" min="5">
+
+                <label for="email">Email *</label>
+                <input type="email" name="email" id="email" placeholder="Digite seu email"  required>
+
+                <label for="senha">Senha *</label>
+                <input type="password" name="senha" id="senha" placeholder="Digite sua senha" required max="10" min="5">
+
+                <button id="btn_cadastrar">Cadastrar</button>
+            </form>
+            <div style="text-align: center;" id="mensagem"></div>
+        </div>
+
+        
+    </main>
+</body>
+</html>
+
+<script src="meuscript.js"></script>
+<script src="cadastre.js"></script>
