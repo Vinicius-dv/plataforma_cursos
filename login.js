@@ -1,6 +1,14 @@
 const btn_cadastrar = document.getElementById('btn_cadastrar')
+const cad = document.querySelectorAll('.cad')
+window.onload = () => {
+  
+    const token = localStorage.getItem('token')
 
-window.onload
+    if (token) {
+         if (cad) cad.style.display = 'none'
+        window.location.href = '/painel_login.html';
+    }
+}
 
 btn_cadastrar.addEventListener('click',(e)=>{
     e.preventDefault()

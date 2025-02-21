@@ -49,6 +49,18 @@ header{
     display: none;
 }
 
+.logout_btn{
+    background-color:#F2FAFC ;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: color 0.5s;
+}
+
+.logout_btn:hover{
+    color: #606CF5;
+}
+
 
 @media (max-width: 1170px) {
     .ul_itens {

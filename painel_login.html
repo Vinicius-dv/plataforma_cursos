@@ -4,8 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_painel.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
-    <h1>Você fez login!</h1>
+    <header>
+        <nav style="height: 150px;" class="nav_itens">
+            <p class="p_logo">Learnify Cursos</p>
+            <ul class="ul_itens">
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+
+                <li>
+                    <a href="pagina_cursos.html">Cursos</a>
+                </li>
+
+
+                <li>
+                    <a href="pagina_cursos.html">Certificado</a>
+                </li>            
+            </ul>
+            <span style="color: black;" class="menu_hamburguer" id="menu_hamburguer">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+        </nav>
+            <div class="main_mobile" id="main_mobile">
+            <div class="menu_itens">
+                <ul class="ul_mobile">
+
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+    
+                    <li>
+                        <a href="pagina_cursos.html">Cursos</a>
+                    </li>
+    
+                    <li>
+                        <a href="pagina_cursos.html">Certificado</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h1 style="text-align: center; margin-top: 40px; margin-bottom: 40px;">Meu painel</h1>
+        <div class="main_painel">
+
+            <div class="card_painel">
+                <h1>Meus cursos</h1>
+                <p>Veja todos os cursos que você esta matriculado</p>
+            </div>
+
+            <div class="card_painel">
+                <h1>Certificados</h1>
+                <p>Baixe seus certificados de conclusão!</p>
+            </div>
+            
+            <div class="card_painel">
+                <h1>Perfil</h1>
+                <p>Edite suas informações pessoais.</p>
+            </div>
+
+
+            <div class="card_painel">
+                <h3>Progresso</h3>
+                <p>Acompanhe seu desempenho nos cursos.</p>
+            </div>
+
+        </div>
+    </main>
 </body>
 </html>
+
+<script src="meuscript.js"></script>

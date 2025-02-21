@@ -45,3 +45,9 @@
 .main_cadastro button:hover{
     background-color: rgb(3, 3, 202);
 }
+
+@media(max-width:1024px){
+    .main_cadastro{
+        width: 100%;
+    }
+}

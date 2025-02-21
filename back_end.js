@@ -1,4 +1,4 @@
-const express = require('express')
+ const express = require('express')
 const body_parser = require('body-parser')
 const mongoose = require('mongoose')
 const app = express()
@@ -18,7 +18,8 @@ const cadastro_Schema = new mongoose.Schema({
     senha: String,
     nome: String,
     sobrenome: String,
-    email: String
+    email: String,
+    curso_selecionado: [String]
 })
 
 const cadastro = mongoose.model('Cadastro', cadastro_Schema)
@@ -126,6 +127,42 @@ app.post('/login',(req,res)=>{
         })
     })
 })
+
+app.post('/inscrever',(req,res)=>{
+    console.log("Token recebido:", req.body.token_email)
+    const curso = req.body.curso
+    const token_email = req.body.token_email
+    cadastro.findOne({email:token_email})
+    .then(email=>{
+        if(!email){  
+            return res.status(400).json({
+            success: false,
+            message: 'Realize o seu login!',
+        })
+        }else{
+            console.log('Cursos salvos',email.curso_selecionado)
+            if(!email.curso_selecionado.includes(curso)){
+                email.curso_selecionado.push(curso)
+                email.save()
+                .then(()=>{
+                    res.json({
+                        success:true,
+                        inscrito:true,
+                        message: 'Curso adicionado com sucesso!',
+                        curso_selecionado: email.curso_selecionado
+                    })
+                })
+                .catch((err) => console.error("Erro ao salvar o curso:", err))
+            } else {
+                return res.json({ inscrito: false })
+            }
+        }
+    })
+    .catch((err) => console.error("Erro ao buscar o usuário:", err))   
+})
+
+
+
 
 app.listen(port, () => {
     console.log('Rodando na porta ' + port)

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_cursos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+    <header>
+        <nav style="height: 200px;" class="nav_itens">
+            <p style="font-size: 1.5em;" class="p_logo">Learnify Cursos</p>
+            <ul class="ul_itens">
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+
+                <li>
+                    <a class="login" href="login.html">Login</a>
+                </li>
+
+                <li>
+                    <a class="cad" href="cadastre.html">Cadastre</a>
+                </li>
+
+
+                <li>
+                    <a href="pagina_cursos.html">Certificado</a>
+                </li>            
+            </ul>
+            <span style="color: black;" class="menu_hamburguer" id="menu_hamburguer">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+        </nav>
+        <div class="main_mobile" id="main_mobile">
+            <div class="menu_itens">
+                <ul class="ul_mobile">
+
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+
+    
+                    <li>
+                        <a class="login" href="login.html">Login</a>
+                    </li>
+    
+                    <li>
+                        <a class="cad" href="cadastre.html">Cadastre</a>
+                    </li>
+    
+                    <li>
+                        <a href="pagina_cursos.html">Certificado</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main id="main_curso"></main>
+</body>
+</html>
+<script src="meuscript.js"></script>
+<script>
+    function get_url_parametro(name){
+        const url_parametro = new URLSearchParams(window.location.search) 
+        return url_parametro.get(name)
+    }
+
+    const token = localStorage.getItem('token')
+    if(!token){
+        alert('faça login ou se cadastre')
+        window.location.href = 'login.html'
+    }
+
+    const id_curso = get_url_parametro('id')
+    const main_curso = document.getElementById('main_curso')
+    const cursos = {
+        1:{
+            nome:'HTML5',
+            descrição:'HTML5 (Hypertext Markup Language, versão 5) é a linguagem padrão para criação de páginas web. Ela permite estruturar o conteúdo de forma semântica, organizada e acessível, sendo essencial para qualquer desenvolvedor web. Com recursos modernos, como elementos de áudio, vídeo e canvas, o HTML5 proporciona experiências interativas sem a necessidade de plugins externos.'
+        },
+
+        2:{
+            nome:'CSS3',
+            descrição:'CSS3 (Cascading Style Sheets, versão 3) é a tecnologia responsável pela estilização das páginas web. Através do CSS3, é possível criar layouts responsivos, animações e efeitos visuais avançados, proporcionando uma experiência de usuário moderna e atrativa. Com a utilização de media queries, flexbox e grid, o CSS3 permite o desenvolvimento de sites adaptáveis a diferentes tamanhos de tela.'
+        },
+
+
+        3:{
+            nome:'JAVACRIPT',
+            descrição:'javaScript é uma linguagem de programação essencial para o desenvolvimento web. Com ela, é possível adicionar interatividade, manipular elementos do DOM, validar formulários, criar animações e construir aplicações web dinâmicas. O JavaScript é amplamente utilizado tanto no front-end quanto no back-end, através do Node.js, tornando-se indispensável para qualquer desenvolvedor full-stack.'
+        },
+
+
+        4:{
+            nome:'PHP',
+            descrição:'PHP (Hypertext Preprocessor) é uma linguagem de programação do lado do servidor, utilizada principalmente para o desenvolvimento de aplicações web dinâmicas. Com PHP, é possível interagir com bancos de dados, gerenciar sessões, manipular arquivos e criar sistemas robustos, como blogs, lojas virtuais e plataformas de e-learning. Sua sintaxe simples e a grande comunidade tornam o PHP uma excelente escolha para quem está iniciando no back-end.'
+        },
+
+
+        5:{
+            nome:'MongoDB',
+            descrição:'MongoDB é um banco de dados NoSQL que se destaca por sua flexibilidade e desempenho. Em vez de tabelas e registros, o MongoDB utiliza documentos no formato JSON, o que facilita a integração com aplicações JavaScript e Node.js. Ele é ideal para projetos que exigem escalabilidade, como aplicações em tempo real, redes sociais e sistemas de big data.'
+        },
+
+
+        6:{
+            nome:'Node.js',
+            descrição:'Node.js é um ambiente de execução JavaScript no lado do servidor, projetado para criar aplicações rápidas e escaláveis. Com o Node.js, é possível construir APIs, servidores web, sistemas de chat e muito mais, utilizando a mesma linguagem do front-end. A sua arquitetura baseada em eventos e não bloqueante torna o Node.js incrivelmente eficiente, especialmente para aplicações em tempo real.'
+        }
+    }
+
+    if(id_curso &&cursos[id_curso]){
+        const curso = cursos[id_curso]
+        const token_decodificado = JSON.parse(atob(token.split('.')[1]))
+        const token_email = token_decodificado.email
+        
+        fetch('http://localhost:3000/inscrever',{
+                method:'post',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify({curso:id_curso,token_email})
+        })
+        .then(res=>res.json())
+        .then(dados=>{
+            console.log("Resposta do backend:", dados)
+            if(dados.inscrito ===false){
+                window.location.href = 'aulas.html'
+            }else{
+                main_curso.innerHTML = `
+                <h1>${curso.nome}</h1>
+                <p>${curso.descrição}</p>
+                <button id="inscrever">Inscrever-se</button>
+            `
+
+            const button = document.getElementById('inscrever')
+            button.addEventListener('click', () => {
+                fetch('http://localhost:3000/inscrever', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ curso: id_curso, token_email })
+                })
+                .then(res => res.json())
+                .then(dados => {
+                    if (dados.inscrito) {
+                        window.location.href = "aulas.html"
+                    } else if(dados.inscrito ===false){
+                        window.location.href = "aulas.html"
+                    }
+                })
+                .catch(err => console.error("Erro ao se inscrever:", err))
+            })
+        }
+    })
+} 
+
+</script>

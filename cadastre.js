@@ -1,5 +1,7 @@
 const btn_cadastrar = document.getElementById('btn_cadastrar')
 
+
+
 btn_cadastrar.addEventListener('click',(e)=>{
     e.preventDefault()
     const form = document.getElementById('form')
@@ -31,6 +33,7 @@ btn_cadastrar.addEventListener('click',(e)=>{
         if(dados.success){
             mensagem.innerText = dados.message
             mensagem.style.color = 'green'
+            window.location.href ='cadastre.html'
             form.reset()
         }else{
             mensagem.innerText = dados.message
