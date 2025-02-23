@@ -1,4 +1,4 @@
-const btn_cadastrar = document.getElementById('btn_cadastrar')
+document.getElementById('btn_cadastrar')
 const cad = document.querySelectorAll('.cad')
 window.onload = () => {
   
@@ -55,3 +55,4 @@ btn_cadastrar.addEventListener('click',(e)=>{
         console.log('Ocorreu um erro'+err)
     })
 })
+

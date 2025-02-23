@@ -117,8 +117,7 @@
     if(id_curso &&cursos[id_curso]){
         const curso = cursos[id_curso]
         const token_decodificado = JSON.parse(atob(token.split('.')[1]))
-        const token_email = token_decodificado.email
-        
+        const token_email = token_decodificado.sobrenome
         fetch('http://localhost:3000/inscrever',{
                 method:'post',
                 headers:{
@@ -128,16 +127,15 @@
         })
         .then(res=>res.json())
         .then(dados=>{
-            console.log("Resposta do backend:", dados)
             if(dados.inscrito ===false){
                 window.location.href = 'aulas.html'
             }else{
-                main_curso.innerHTML = `
+                main_curso.innerHTML = 
+                `
                 <h1>${curso.nome}</h1>
                 <p>${curso.descrição}</p>
                 <button id="inscrever">Inscrever-se</button>
-            `
-
+                `
             const button = document.getElementById('inscrever')
             button.addEventListener('click', () => {
                 fetch('http://localhost:3000/inscrever', {
@@ -148,8 +146,8 @@
                     body: JSON.stringify({ curso: id_curso, token_email })
                 })
                 .then(res => res.json())
-                .then(dados => {
-                    if (dados.inscrito) {
+                .then(dados =>{
+                    if (dados.inscrito){
                         window.location.href = "aulas.html"
                     } else if(dados.inscrito ===false){
                         window.location.href = "aulas.html"

@@ -1,4 +1,4 @@
- const express = require('express')
+const express = require('express')
 const body_parser = require('body-parser')
 const mongoose = require('mongoose')
 const app = express()
@@ -109,7 +109,7 @@ app.post('/login',(req,res)=>{
             })
         }
         const token = jwt.sign(
-            {id:usuario.id,nome:usuario.nome,email:usuario.email,sobrenome:usuario.sobrenome},
+            {sobrenome:usuario.sobrenome},
             'fala_peixe',
             {expiresIn:'1h'}
         )
@@ -132,7 +132,7 @@ app.post('/inscrever',(req,res)=>{
     console.log("Token recebido:", req.body.token_email)
     const curso = req.body.curso
     const token_email = req.body.token_email
-    cadastro.findOne({email:token_email})
+    cadastro.findOne({sobrenome:token_email})
     .then(email=>{
         if(!email){  
             return res.status(400).json({
