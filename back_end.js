@@ -162,6 +162,55 @@ app.post('/inscrever',(req,res)=>{
 })
 
 
+app.put('/alterar_dados',(req,res)=>{
+    console.log("Token recebido:", req.body.token_email)
+    const nome = req.body.dados.nome
+    const email = req.body.dados.email
+    const senha = req.body.dados.senha
+    const sobrenome = req.body.dados.sobrenome
+    const token_email = req.body.token_email
+
+    if(!token_email){
+        return res.status(401).json({message:'não autorizado'})
+    }
+
+    if(senha){
+        bcrypt.genSalt(10,(err,salt)=>{
+            if(err){
+                return res.status(500).json({message:'erro ao gerar o salt'})
+            }
+
+            bcrypt.hash(senha,salt,(err,hash)=>{
+                if(err){
+                    return res.status(500).json({message})
+                }
+                cadastro.findOneAndUpdate({sobrenome:token_email},{ nome, email, senha:hash,sobrenome},{new:true})
+                .then(usuario_atualizado=>{
+                    if(!usuario_atualizado){
+                        return res.status(404).json({message:'usuario não encontrado',success:false})
+                    }
+                    res.json({message:'dados atualizados com sucesso!',usuario:usuario_atualizado,success:true})
+                })
+                .catch(err=>{
+                    res.status(500).json({message:'deu algo errado',err})
+                })
+            })
+        })
+    }else{
+        cadastro.findOneAndUpdate({sobrenome},{ nome,email,sobrenome},{new:true})
+        .then(usuario_atualizado=>{
+            if(!usuario_atualizado){
+                return res.status(404).json({message:'usuario não encontrado',success:false})
+            }
+            res.json({message:'dados atualizados com sucesso!',usuario:usuario_atualizado,success:true})
+        })
+        .catch(err=>{
+            res.status(500).json({message:'deu algo errado',err})
+        })
+    }
+})
+
+
 
 
 app.listen(port, () => {
