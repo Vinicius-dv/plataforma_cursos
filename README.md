@@ -13,7 +13,7 @@ Banco de dados: MongoDB
 
 Autenticação: JWT (armazenado no localStorage)
 
-Outros: CORS, rotas separadas, validações básicas
+Outros: CORS, rotas separadas, validações básicas.
 
 🔐 Funcionalidades
 Cadastro e login de usuários
