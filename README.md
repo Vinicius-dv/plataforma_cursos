@@ -28,7 +28,7 @@ Listagem de cursos disponíveis
 
 Interface simples, leve e responsiva
 
-Estrutura backend organizada com rotas separadas
+Estrutura backend organizada com rotas separadas.
 
 ⚙️ Como rodar o projeto
 Pré-requisitos
