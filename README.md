@@ -38,12 +38,8 @@ MongoDB (local ou Atlas)
 
 Passos
 ```bash
-Copiar
-Editar
 # Clone o repositório
 git clone https://github.com/Vinicius-dv/plataformas_cursos.git
-
-
 
 # Instale as dependências
 npm install
