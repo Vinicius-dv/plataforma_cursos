@@ -37,7 +37,7 @@ Node.js instalado
 MongoDB (local ou Atlas)
 
 Passos
-´´´bash
+```bash
 Copiar
 Editar
 # Clone o repositório
