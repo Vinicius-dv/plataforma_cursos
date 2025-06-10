@@ -92,3 +92,4 @@ document.addEventListener("DOMContentLoaded", function () {
         ul_mobile.appendChild(li_logout_mobile)
     }
 })
+

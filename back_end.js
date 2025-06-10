@@ -5,7 +5,7 @@ const app = express()
 const port = 3000
 const cors = require('cors')
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken')
 app.use(cors())
 app.use(body_parser.json())
 app.use(express.json())
@@ -209,9 +209,6 @@ app.put('/alterar_dados',(req,res)=>{
         })
     }
 })
-
-
-
 
 app.listen(port, () => {
     console.log('Rodando na porta ' + port)
