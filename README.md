@@ -13,7 +13,7 @@ Banco de dados: MongoDB
 
 Autenticação: JWT (armazenado no localStorage)
 
-Outros: CORS, rotas separadas, validações básicas
+Outros: CORS, rotas separadas, validações básicas.
 
 🔐 Funcionalidades
 Cadastro e login de usuários
@@ -28,7 +28,7 @@ Listagem de cursos disponíveis
 
 Interface simples, leve e responsiva
 
-Estrutura backend organizada com rotas separadas
+Estrutura backend organizada com rotas separadas.
 
 ⚙️ Como rodar o projeto
 Pré-requisitos
